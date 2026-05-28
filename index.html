@@ -1,0 +1,3831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethan Glines — Strategy. Brand. Deliver.</title>
+<meta name="description" content="Founder of Blue Luna. I've done it twice, in two different industries. Brand strategy, copy, design, and build under one operator.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Ethan Glines — Strategy. Brand. Deliver.">
+<meta property="og:description" content="I've done it twice. In two different industries.">
+<meta property="og:type" content="website">
+
+<!-- Preconnect for Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   Ethan Glines — Personal Website v5
+   Direction: "Warm Editorial" (Cole, locked) + native emoji personality
+   v5 additions on top of v4-dynamic baseline:
+     A. Case Studies (replaces "Selected Work"; TWG promoted to third case study)
+     B. Field Notes (5-card editorial grid sourced from LinkedIn posts)
+     C. Credentials (extensible amber name-plate strip)
+     D. Elevator Pitch (custom audio player + written script, between Hero and Bio)
+     E. Nav update — Pitch / Work / Field Notes / Timeline / Capabilities / Contact
+   ============================================================ */
+
+/* === Design Tokens === */
+:root {
+  /* Palette */
+  --bg: #F7F3EC;
+  --surface: #FFFFFF;
+  --ink: #1A1A1A;
+  --accent: #C8742A;
+  --accent-soft: rgba(200, 116, 42, 0.08);
+  --accent-deep: #A85E1F;
+  --forest: #3E5C50;
+  --neutral: #8A8278;
+  --neutral-mid: #B8B0A5;
+  --hairline: rgba(26, 26, 26, 0.08);
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Emoji rendering — pin to the OS native emoji font so flags + glyphs render predictably */
+  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', 'EmojiOne Color', 'Android Emoji', sans-serif;
+
+  /* Spacing rhythm — tightened 2026-05-15 */
+  --section-pad: clamp(56px, 7.5vw, 96px);
+  --gutter: clamp(1.25rem, 8vw, 8rem);
+  --measure: 65ch;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Reset / Base === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  /* Note: no overflow-x rule here — preserves sticky if added later */
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(16px, 1.05vw, 17px);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip; /* Safari-safe; never overflow-x: hidden */
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+::selection { background: var(--accent); color: var(--bg); }
+
+/* === Skip Link === */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 999;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0 0 6px 6px;
+  transition: top 0.2s var(--ease-soft);
+}
+.skip-link:focus { top: 0; outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* === Focus styles === */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* === Layout primitives === */
+.wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+section {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+  position: relative;
+}
+
+/* === Typography === */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-bottom: 1rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  color: var(--ink);
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+}
+
+h2 {
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  font-variation-settings: "opsz" 96, "SOFT" 60;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 2vw, 1.875rem);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+}
+
+p {
+  font-size: clamp(1rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  max-width: var(--measure);
+}
+
+/* Thin warm-amber rule under section headers — at cap-height of Fraunces "x" */
+.section-rule {
+  width: 56px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+/* === Emoji utility — inline geographic markers === */
+.emoji {
+  font-family: var(--font-emoji);
+  font-style: normal;
+  font-weight: 400;
+  /* Preserve inherited line-height to avoid baseline shifts */
+  line-height: 1;
+  /* Keep the emoji color-rendered, never tinted by text-color */
+  -webkit-font-feature-settings: "liga";
+  font-variant-emoji: emoji;
+}
+.emoji--inline {
+  display: inline-block;
+  margin: 0 0.15em;
+  vertical-align: -0.05em;
+  font-size: 0.95em;
+}
+
+/* === HEADER (minimal) === */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 1.25rem 0;
+  background: rgba(247, 243, 236, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  transition: padding 0.3s var(--ease-soft), background 0.3s var(--ease-soft);
+}
+.site-header.scrolled {
+  padding: 0.875rem 0;
+  background: rgba(247, 243, 236, 0.95);
+  border-bottom: 1px solid var(--hairline);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-mark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "opsz" 24, "SOFT" 60;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+}
+.brand-mark .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+.site-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.site-nav a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
+  position: relative;
+  transition: color 0.2s var(--ease-soft);
+}
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.25s var(--ease-soft);
+}
+.site-nav a:hover { color: var(--accent); }
+.site-nav a:hover::after { width: 100%; }
+@media (max-width: 720px) {
+  .site-nav { display: none; }
+}
+
+/* === HERO === */
+.hero {
+  padding-top: clamp(120px, 15vh, 180px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-bottom: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--neutral);
+  display: inline-block;
+}
+
+/* === Hero location stamp — pill badge: 🌴 LAIE, HAWAII === */
+.hero-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+  margin-bottom: 1.5rem;
+  background: var(--accent-soft);
+  border: 1px solid rgba(200, 116, 42, 0.3);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  line-height: 1;
+}
+.hero-stamp .emoji {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.hero-h1 {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(2.75rem, 6.4vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+/* === Letter-stagger word reveal (v4 #3) ===
+   Each word starts hidden (opacity 0, translateY(8px)) and reveals in sequence.
+   The .word span uses inline-block so transform doesn't break line flow.
+*/
+.hero-h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+  will-change: opacity, transform;
+}
+.hero-h1 .word.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Slight space between words is provided by literal whitespace in HTML.
+   inline-block words eat that whitespace, so we restore it via word-spacing fallback */
+.hero-h1 { word-spacing: normal; }
+
+/* Hand-drawn underline under "deliver" in the support line */
+.hero-support {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72, "SOFT" 60;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.012em;
+  /* v4 #3 — support line fades in as a single block after H1 sequence completes */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+  will-change: opacity, transform;
+}
+.hero-support.in { opacity: 1; transform: translateY(0); }
+
+.underlined {
+  position: relative;
+  display: inline-block;
+  color: var(--ink);
+}
+.underlined-svg {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  bottom: -0.08em;
+  width: 108%;
+  height: 0.14em;
+  overflow: visible;
+  pointer-events: none;
+}
+.underlined-svg path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+}
+.underlined-svg.draw path {
+  animation: drawLine 700ms var(--ease-out) forwards;
+}
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Smaller underlined variant for inline words in body copy (v4 #5) */
+.underlined--sm .underlined-svg {
+  left: -3%;
+  right: -3%;
+  bottom: -0.12em;
+  width: 106%;
+  height: 0.18em;
+}
+.underlined--sm .underlined-svg path {
+  stroke-width: 2.25;
+}
+
+.hero-mission {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--neutral);
+  max-width: 52ch;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+  margin: 1.75rem 0 2.5rem;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 0.875rem 1.5rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  transition: background 0.25s var(--ease-soft), color 0.25s var(--ease-soft);
+}
+.hero-cta .arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-soft);
+}
+.hero-cta:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+.hero-cta:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Hero photo treatment */
+.hero-photo-wrap {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-width: 440px;
+  width: 100%;
+  margin-left: auto;
+}
+.hero-photo-wrap::before {
+  /* Warm offset shape behind the photo */
+  content: '';
+  position: absolute;
+  inset: 18px -18px -18px 18px;
+  background: var(--accent);
+  border-radius: 8px 60px 8px 60px;
+  opacity: 0.85;
+  z-index: 0;
+}
+.hero-photo-wrap::after {
+  /* Subtle forest accent dot */
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  width: 56px;
+  height: 56px;
+  background: var(--forest);
+  border-radius: 50%;
+  z-index: 0;
+}
+.hero-photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px 60px 8px 60px;
+  z-index: 1;
+  filter: saturate(1.02);
+}
+@media (max-width: 880px) {
+  .hero-photo-wrap {
+    max-width: 320px;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* Hero meta strip */
+.hero-meta {
+  margin-top: clamp(2rem, 4vw, 3.25rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral);
+}
+.hero-meta span strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* === BIO === */
+.bio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .bio-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.bio-heading h2 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  margin-bottom: 0;
+}
+.bio-body p + p { margin-top: 1.25rem; }
+.bio-body p {
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 60ch;
+}
+.bio-currently {
+  margin-top: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.bio-currently::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+.bio-currently strong { color: var(--ink); font-weight: 500; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+/* === TRAVEL STRIP — "Where I've been" flag bar === */
+.travel-strip {
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+  padding-top: clamp(1.5rem, 2.5vw, 2rem);
+  border-top: 1px solid var(--hairline);
+}
+.travel-strip figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.travel-strip figcaption::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--neutral);
+  display: inline-block;
+}
+.travel-flags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: clamp(1.25rem, 2.5vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+}
+.travel-flags li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 64px;
+  transition: transform 0.25s var(--ease-soft);
+}
+.travel-flags li:hover {
+  transform: translateY(-3px);
+}
+.travel-flags .flag {
+  font-family: var(--font-emoji);
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1;
+  /* On systems that render flags as letter pairs, keep them readable */
+  letter-spacing: -0.02em;
+  font-variant-emoji: emoji;
+}
+.travel-flags .label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   v4 #1 — STAT STRIP (count-up)
+   Lives between Bio and Selected Work. Horizontal 4-col on desktop,
+   2x2 grid on mobile. Counts animate when ~50% in view.
+============================================================ */
+.stat-strip {
+  background: var(--bg);
+  padding-top: clamp(2.5rem, 4.5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 4.5vw, 4rem);
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+@media (max-width: 720px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); row-gap: clamp(1.75rem, 4vw, 2.5rem); }
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+}
+/* Vertical hairline rules between columns — desktop only.
+   Use right border on every cell, hide on last in each row. */
+@media (min-width: 721px) {
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 12%;
+    bottom: 12%;
+    width: 1px;
+    background: var(--neutral-mid);
+    opacity: 0.5;
+  }
+}
+@media (max-width: 720px) {
+  /* On the 2x2 mobile grid, draw a hairline between columns only (cells 1 & 3) */
+  .stat-item:nth-child(odd)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 12%;
+    bottom: 12%;
+    width: 1px;
+    background: var(--neutral-mid);
+    opacity: 0.5;
+  }
+}
+.stat-number {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.028em;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: baseline;
+  /* Tabular figures keep digit widths stable during count-up */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  margin-bottom: 0.75rem;
+}
+.stat-number .plus {
+  font-size: 0.7em;
+  margin-left: 0.05em;
+  color: var(--accent);
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.7);
+  line-height: 1.3;
+  max-width: 22ch;
+}
+
+/* === SELECTED WORK === */
+.work {
+  background: var(--bg);
+}
+.section-head {
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  max-width: 760px;
+}
+.section-head .eyebrow { margin-bottom: 1rem; }
+.section-head p {
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  color: var(--neutral);
+  line-height: 1.55;
+  margin-top: 1rem;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+@media (min-width: 980px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.project-card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: clamp(1.5rem, 2.2vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border: 1px solid var(--hairline);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(26, 26, 26, 0.12);
+}
+.project-card:hover::before { transform: scaleX(1); }
+
+.project-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.project-meta span { white-space: nowrap; }
+
+.project-title {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 48, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.7vw, 1.625rem);
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+}
+
+.project-role {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forest);
+  font-weight: 500;
+}
+
+.project-summary {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.project-outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.project-outcomes li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.project-outcomes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 6px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.project-cta {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  align-self: flex-start;
+  transition: gap 0.25s var(--ease-soft);
+}
+.project-cta:hover { gap: 0.7rem; }
+.project-cta.disabled {
+  color: var(--neutral);
+  cursor: default;
+  pointer-events: none;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+/* === CARD IMAGE: Contained brand banner (matches .project-video framing) === */
+.project-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0A1530;
+  margin: clamp(1rem, 2vw, 1.5rem) 0;
+  display: block;
+}
+.project-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* === CARD MEDIA: Video embed + Patagonia gallery === */
+.project-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.project-video--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.project-video--link img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s var(--ease-soft), transform 0.4s var(--ease-out);
+}
+.project-video--link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26,26,26,0) 55%, rgba(26,26,26,0.35) 100%);
+  z-index: 1;
+  transition: background 0.3s var(--ease-soft);
+  pointer-events: none;
+}
+.project-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(26, 26, 26, 0.35);
+  transition: transform 0.25s var(--ease-out), background 0.25s var(--ease-soft);
+  pointer-events: none;
+}
+.project-video-play svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin-left: 3px; /* optical centering of triangle */
+  fill: #FFFFFF;
+}
+.project-video-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: rgba(26, 26, 26, 0.6);
+  padding: 4px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+.project-video--link:hover img {
+  transform: scale(1.02);
+  filter: brightness(0.92);
+}
+.project-video--link:hover .project-video-play {
+  transform: translate(-50%, -50%) scale(1.05);
+  background: var(--accent-deep);
+}
+.project-video--link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-video--link img,
+  .project-video-play,
+  .project-video--link::before {
+    transition: none;
+  }
+  .project-video--link:hover img { transform: none; }
+  .project-video--link:hover .project-video-play { transform: translate(-50%, -50%); }
+}
+.project-video-caption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-top: 0.25rem;
+}
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+@media (max-width: 540px) {
+  .project-gallery { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+.project-gallery-item {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+.project-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.project-gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -16px rgba(26, 26, 26, 0.25);
+}
+
+/* === TIMELINE === */
+.timeline-section {
+  background: linear-gradient(180deg, var(--bg) 0%, #F1ECE2 100%);
+}
+.timeline-intro {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  color: var(--neutral);
+  margin-top: 0.75rem;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+.timeline {
+  position: relative;
+  padding-left: 0;
+  list-style: none;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg,
+    rgba(200, 116, 42, 0.3) 0%,
+    rgba(200, 116, 42, 0.6) 50%,
+    rgba(200, 116, 42, 0.1) 100%);
+}
+@media (min-width: 720px) {
+  .timeline::before { left: 130px; }
+}
+.timeline-item {
+  position: relative;
+  padding-left: 48px;
+  padding-bottom: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+}
+@media (min-width: 720px) {
+  .timeline-item {
+    grid-template-columns: 130px 1fr;
+    padding-left: 0;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: baseline;
+  }
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0.5rem;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  z-index: 1;
+  transition: background 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
+}
+@media (min-width: 720px) {
+  .timeline-item::before { left: 124px; }
+}
+.timeline-item:hover::before {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.timeline-body {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 60ch;
+}
+.timeline-body strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* === CAPABILITIES === */
+.capabilities {
+  background: var(--surface);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.caps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem) clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 680px) { .caps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .caps-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.cap-item {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cap-number {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--neutral);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+/* === Capability emoji icon === */
+.cap-icon {
+  font-family: var(--font-emoji);
+  font-size: clamp(1.75rem, 2.4vw, 2.125rem);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  display: inline-block;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--accent);
+  width: max-content;
+}
+
+.cap-label {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.cap-desc {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--neutral);
+  max-width: 40ch;
+}
+
+/* === RESUME === */
+.resume {
+  text-align: left;
+}
+.resume-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .resume-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.resume h2 {
+  margin-bottom: 0;
+}
+.resume-intro {
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+.resume-contents {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--neutral);
+  margin-bottom: 1.75rem;
+}
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 1rem 1.75rem;
+  border-radius: 999px;
+  transition: background 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft);
+  box-shadow: 0 4px 14px -4px rgba(200, 116, 42, 0.4);
+}
+.btn-download:hover {
+  background: var(--accent-deep);
+  box-shadow: 0 8px 22px -6px rgba(200, 116, 42, 0.5);
+}
+.btn-download svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   v4 #4 — TESTIMONIALS
+   Two cards side-by-side on desktop, stacked on mobile.
+   Quotes are PLACEHOLDERS pending real endorsements (see HTML comments).
+============================================================ */
+.testimonials {
+  background: linear-gradient(180deg, #F1ECE2 0%, var(--bg) 100%);
+}
+.testi-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+@media (min-width: 880px) {
+  .testi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.testi-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: clamp(2rem, 3vw, 2.75rem) clamp(1.75rem, 2.5vw, 2.25rem) clamp(1.75rem, 2.5vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+.testi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -22px rgba(26, 26, 26, 0.18);
+  border-color: rgba(200, 116, 42, 0.35);
+}
+.testi-quote-mark {
+  position: absolute;
+  top: 0.25rem;
+  left: 1rem;
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(5rem, 7vw, 6.5rem);
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.55;
+  pointer-events: none;
+  user-select: none;
+}
+.testi-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 72, "SOFT" 100, "wght" 400;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+  line-height: 1.4;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+  border: none;
+  position: relative;
+  z-index: 1;
+  max-width: none;
+}
+.testi-attribution {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.6);
+  font-style: normal;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+.testi-attribution strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.testi-attribution .sep {
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+/* === CONTACT === */
+.contact {
+  background: var(--bg);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.contact h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 0;
+}
+.contact-framing {
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 2rem;
+  max-width: 50ch;
+}
+.contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  transition: border-color 0.25s var(--ease-soft);
+  max-width: 480px;
+}
+.contact-btn:hover {
+  border-color: var(--accent);
+}
+.contact-btn-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.contact-btn-label .small {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+}
+.contact-btn-label .big {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+}
+.contact-btn svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform 0.25s var(--ease-soft);
+}
+.contact-btn:hover svg { transform: translate(2px, -2px); }
+
+/* ============================================================
+   v4 #2 — MAGNETIC CTAs
+   Buttons translate subtly toward the cursor when within ~80px radius.
+   - Implemented via JS that sets --mx and --my custom properties.
+   - Touch / no-hover devices: effect disabled by gating CSS to (hover: hover).
+   - Reduced motion: effect disabled (snap to 0,0).
+   - Pulls applied as a child wrapper or via translate composited with hover
+     transforms; for simplicity we apply directly to the magnetic element and
+     remove the original hover translateY/scale so they don't compound.
+============================================================ */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .magnetic {
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+    transition: transform 200ms var(--ease-out);
+    will-change: transform;
+  }
+  /* When the JS marks the button as actively-tracking, drop the transition so
+     each rAF tick reads instantly; we use a slightly longer return transition. */
+  .magnetic.is-tracking {
+    transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .magnetic { transform: none !important; }
+}
+
+/* === FOOTER === */
+.site-footer {
+  background: var(--ink);
+  color: var(--bg);
+  padding: clamp(3rem, 5vw, 5rem) 0 2.5rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 720px) {
+  .footer-grid {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: end;
+  }
+}
+.footer-primary {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 48, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  line-height: 1.3;
+  color: var(--bg);
+  letter-spacing: -0.012em;
+  max-width: 32ch;
+}
+.footer-links {
+  display: flex;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+@media (min-width: 720px) {
+  .footer-links { justify-content: flex-end; }
+}
+.footer-links a {
+  font-size: 0.875rem;
+  color: var(--bg);
+  opacity: 0.7;
+  position: relative;
+  transition: opacity 0.2s var(--ease-soft);
+}
+.footer-links a:hover { opacity: 1; color: var(--accent); }
+
+.footer-base {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(247, 243, 236, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: rgba(247, 243, 236, 0.6);
+}
+.footer-signoff {
+  color: var(--accent);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 24, "SOFT" 100;
+  font-size: 0.9375rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ============================================================
+   v5 D — ELEVATOR PITCH MODULE
+   Position: between Hero and Bio. Custom audio player + written script.
+============================================================ */
+.elevator-pitch {
+  background: var(--bg);
+}
+.pitch-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: stretch;
+}
+@media (max-width: 880px) {
+  .pitch-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* --- Player wrapper --- */
+.pitch-player {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2vw, 2rem);
+}
+@media (max-width: 480px) {
+  .pitch-player { flex-direction: column; align-items: stretch; text-align: left; }
+}
+
+/* --- Round amber play button --- */
+.pitch-play {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px -6px rgba(200, 116, 42, 0.45);
+  transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+.pitch-play:hover {
+  background: var(--accent-deep);
+  transform: scale(1.04);
+  box-shadow: 0 10px 32px -6px rgba(200, 116, 42, 0.55);
+}
+.pitch-play:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  .pitch-play { align-self: flex-start; }
+}
+
+/* Icons inside play button (toggle via .is-playing) */
+.pitch-play svg {
+  width: 28px;
+  height: 28px;
+  fill: #FFFFFF;
+  display: block;
+}
+.pitch-play-icon-play { margin-left: 4px; /* optical centering of triangle */ }
+.pitch-play .pitch-play-icon-pause { display: none; }
+.pitch-play.is-playing .pitch-play-icon-play { display: none; }
+.pitch-play.is-playing .pitch-play-icon-pause { display: block; margin-left: 0; }
+
+/* Pulsing ring while playing — echoes .bio-currently::before */
+.pitch-play::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+.pitch-play.is-playing::after {
+  animation: pitchPulse 1.4s ease-out infinite;
+}
+@keyframes pitchPulse {
+  0%   { transform: scale(1);    opacity: 0.55; }
+  100% { transform: scale(1.45); opacity: 0;    }
+}
+
+/* --- Meter column (waveform + progress + time) --- */
+.pitch-meter {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* 32-bar static waveform */
+.pitch-waveform {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 36px;
+}
+.pitch-waveform span {
+  flex: 0 0 4px;
+  background: var(--neutral-mid);
+  border-radius: 2px;
+  transition: background 0.2s var(--ease-soft);
+}
+.pitch-waveform span.is-active {
+  background: var(--accent);
+}
+
+/* Thin progress bar (also the seek target) */
+.pitch-progress {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: var(--hairline);
+  border-radius: 1.5px;
+  cursor: pointer;
+}
+.pitch-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 1.5px;
+  transition: width 0.08s linear;
+}
+.pitch-progress:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Time display */
+.pitch-time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pitch-time-sep {
+  color: var(--accent);
+}
+
+/* --- Script side --- */
+.pitch-script {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pitch-script-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.pitch-script-quote {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72, "SOFT" 100, "wght" 400;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.45vw, 1.375rem);
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1.5rem;
+  margin: 0;
+  letter-spacing: -0.008em;
+  max-width: none;
+}
+.pitch-script-quote p {
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+  max-width: none;
+}
+.pitch-script-quote p + p { margin-top: 1rem; }
+.pitch-script-attr {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-top: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+/* Reduced motion override — kill pulse ring but keep functionality */
+@media (prefers-reduced-motion: reduce) {
+  .pitch-play.is-playing::after { animation: none; opacity: 0; }
+  .pitch-progress-fill { transition: none; }
+  .pitch-waveform span { transition: none; }
+}
+
+/* ============================================================
+   v5 A — CASE STUDIES (replaces "Selected Work" while keeping #work anchor)
+============================================================ */
+.case-studies {
+  background: var(--bg);
+}
+.case-study {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  overflow: hidden;
+  transition: border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+.case-study + .case-study {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+.case-study::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+.case-study:hover {
+  border-color: rgba(200, 116, 42, 0.35);
+  box-shadow: 0 24px 48px -28px rgba(26, 26, 26, 0.16);
+}
+.case-study:hover::before {
+  transform: scaleX(1);
+}
+
+.case-study-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .case-study-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* Left column — meta + quote */
+.case-study-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.case-study-index {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(2.75rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.028em;
+  color: var(--ink);
+  opacity: 0.18;
+  margin: 0;
+}
+.case-study-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0A1530;
+  margin: 0;
+}
+.case-study-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.case-study-title {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(2rem, 2.6vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  margin: 0;
+}
+.case-study-subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 48, "SOFT" 100, "wght" 400;
+  font-weight: 400;
+  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+  line-height: 1.3;
+  color: var(--neutral);
+  margin: 0;
+  max-width: none;
+}
+.case-study-meta-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-top: 0.5rem;
+}
+.case-study-meta-strip span strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.case-study-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 72, "SOFT" 100, "wght" 400;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  line-height: 1.4;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1.25rem;
+  margin: 1rem 0 0 0;
+}
+.case-study-quote p {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  max-width: none;
+  line-height: inherit;
+}
+
+/* Right column — body */
+.case-study-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.case-study-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.case-study-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+.case-study-block p {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.1vw, 1.0625rem);
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 60ch;
+  margin: 0;
+}
+.case-study-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.case-study-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: clamp(0.9375rem, 1.05vw, 1rem);
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 60ch;
+}
+.case-study-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72rem;
+  width: 6px;
+  height: 2px;
+  background: var(--accent);
+}
+.case-study-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  align-self: flex-start;
+  transition: gap 0.25s var(--ease-soft);
+  margin-top: 0.5rem;
+}
+.case-study-cta:hover { gap: 0.7rem; }
+
+/* ============================================================
+   TWG CASE STUDY — Horizontal scroll-snap gallery
+   Lives below the 2-column case-study-grid inside the existing card.
+   Card width stays identical to 01 / 02 (no negative-margin breakout).
+   Gallery respects the card's interior padding so items align with the
+   horizontal bounds of the copy blocks above. Items are portrait 3:4.
+============================================================ */
+.cs-gallery {
+  position: relative;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+.cs-gallery-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cs-gallery-label .arrow {
+  display: inline-block;
+  color: var(--neutral);
+  transition: transform 0.4s var(--ease-out);
+}
+.cs-gallery-scroller {
+  display: flex;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Small vertical breathing for hover lift/shadow; no horizontal padding —
+     scroller's own bounds equal card interior (matches copy-block edges). */
+  padding: 0.25rem 0 0.5rem;
+  /* Snap targets align with scroller's start edge (= card interior left). */
+  scroll-padding-inline: 0;
+  /* Cross-browser scrollbar hide */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.cs-gallery-scroller::-webkit-scrollbar { display: none; }
+
+.cs-gallery-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  /* Portrait 3:4 frame — flatters the two portrait shots (03, 05);
+     08 (landscape group photo) center-crops gracefully via cover. */
+  width: clamp(220px, 32vw, 320px);
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+  position: relative;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.cs-gallery-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -22px rgba(26, 26, 26, 0.25);
+}
+.cs-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease-out), filter 0.3s var(--ease-soft);
+}
+
+/* Video item — gets the gradient overlay + custom amber play button */
+.cs-gallery-item--video::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26,26,26,0) 50%, rgba(26,26,26,0.45) 100%);
+  z-index: 1;
+  transition: background 0.3s var(--ease-soft);
+  pointer-events: none;
+}
+.cs-gallery-item--video:hover img {
+  transform: scale(1.03);
+  filter: brightness(0.92);
+}
+.cs-gallery-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 6px 20px -4px rgba(200, 116, 42, 0.5);
+  transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  pointer-events: none;
+}
+.cs-gallery-play svg {
+  width: 22px;
+  height: 22px;
+  fill: #FFFFFF;
+  display: block;
+  margin-left: 3px; /* optical centering of triangle */
+}
+.cs-gallery-item--video:hover .cs-gallery-play {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: var(--accent-deep);
+  box-shadow: 0 10px 28px -4px rgba(200, 116, 42, 0.6);
+}
+.cs-gallery-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Mobile: items shrink to fit narrower card interior */
+@media (max-width: 540px) {
+  .cs-gallery-item {
+    width: 72vw;
+    max-width: 280px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cs-gallery-scroller { scroll-behavior: auto; }
+  .cs-gallery-item, .cs-gallery-item img, .cs-gallery-play { transition: none; }
+  .cs-gallery-item:hover img { transform: none; }
+  .cs-gallery-item--video:hover .cs-gallery-play { transform: translate(-50%, -50%); }
+}
+
+/* ============================================================
+   v5 B — FIELD NOTES
+============================================================ */
+.field-notes {
+  background: linear-gradient(180deg, #F1ECE2 0%, var(--bg) 100%);
+}
+.section-subhead {
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  line-height: 1.55;
+  color: var(--neutral);
+  margin-top: 1rem;
+  max-width: 56ch;
+}
+.field-notes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+@media (min-width: 720px) {
+  .field-notes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.field-note {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+.field-note::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+.field-note:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -22px rgba(26, 26, 26, 0.18);
+  border-color: rgba(200, 116, 42, 0.35);
+}
+.field-note:hover::before { transform: scaleX(1); }
+
+.field-note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-bottom: 1rem;
+  align-items: center;
+}
+.field-note-num {
+  color: var(--accent);
+}
+.field-note-meta .sep {
+  color: var(--neutral-mid);
+  opacity: 0.7;
+}
+
+.field-note-title {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 48, "SOFT" 60;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2vw, 1.875rem);
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+}
+
+.field-note-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+.field-note-body p {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
+  max-width: none;
+}
+
+.field-note-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.field-note-source {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color 0.2s var(--ease-soft);
+}
+.field-note-source:hover { color: var(--accent); }
+.field-note-source .arrow {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-soft);
+}
+.field-note-source:hover .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ----- Collapsible body (line-clamp teaser + on-demand expand) ----- */
+/* Default (collapsed): clamp the body to 3 lines via line-clamp on the
+   first paragraph; hide subsequent paragraphs entirely. Expanded state
+   removes the clamp and reveals all paragraphs.                       */
+.field-note-body > p {
+  transition: none;
+}
+.field-note:not(.is-expanded) .field-note-body > p:first-child {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.field-note:not(.is-expanded) .field-note-body > p:not(:first-child) {
+  display: none;
+}
+
+/* Toggle button — mono micro-typography, mirrors .field-note-source */
+.field-note-toggle {
+  margin-top: 1rem;
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color 0.2s var(--ease-soft);
+}
+.field-note-toggle:hover { color: var(--accent); }
+.field-note-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.field-note-toggle .toggle-arrow {
+  display: inline-block;
+  transition: transform 0.32s var(--ease-out);
+}
+.field-note.is-expanded .field-note-toggle .toggle-arrow {
+  transform: rotate(180deg);
+}
+.field-note-toggle .toggle-label-less { display: none; }
+.field-note.is-expanded .field-note-toggle .toggle-label-more { display: none; }
+.field-note.is-expanded .field-note-toggle .toggle-label-less { display: inline; }
+
+/* Footer (LinkedIn citation) hidden until expanded */
+.field-note:not(.is-expanded) .field-note-footer { display: none; }
+
+/* Hide the toggle entirely when JS deems the post short enough
+   that the teaser IS the whole post.                              */
+.field-note.is-short .field-note-toggle { display: none; }
+.field-note.is-short .field-note-footer { display: flex; }
+.field-note.is-short .field-note-body > p:first-child {
+  display: block;
+  -webkit-line-clamp: none;
+  line-clamp: none;
+}
+.field-note.is-short .field-note-body > p:not(:first-child) {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-note-toggle .toggle-arrow { transition: none; }
+}
+
+/* ============================================================
+   v5 C — CREDENTIALS
+============================================================ */
+.credentials {
+  background: var(--bg);
+  border-top: 1px solid var(--hairline);
+}
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  /* When few credentials exist, badges sit at natural width
+     leftward — empty space on the right reads as "more coming." */
+  justify-content: start;
+}
+@media (min-width: 720px) {
+  /* Cap each card's natural width so a single badge doesn't stretch */
+  .credentials-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 420px)); }
+}
+
+.credential {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  max-width: 420px;
+  transition: border-color 0.25s var(--ease-soft), transform 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft);
+}
+.credential:hover {
+  border-color: rgba(200, 116, 42, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -20px rgba(26, 26, 26, 0.15);
+}
+.credential:hover .credential-mark {
+  background: rgba(200, 116, 42, 0.12);
+}
+.credential:hover .credential-verify .arrow {
+  transform: translate(2px, -2px);
+}
+
+.credential-mark {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(200, 116, 42, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s var(--ease-soft);
+}
+.credential-mark-glyph {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-weight: 500;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.credential-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.credential-issuer {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin: 0;
+}
+.credential-name {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+.credential-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin: 0.3rem 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.credential-sep {
+  color: var(--accent);
+  opacity: 0.7;
+}
+.credential-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--accent);
+  transition: color 0.2s var(--ease-soft);
+}
+.credential-verify .arrow {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-soft);
+}
+
+/* === SCROLL REVEAL === */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal[data-delay="1"] { transition-delay: 80ms; }
+.reveal[data-delay="2"] { transition-delay: 160ms; }
+.reveal[data-delay="3"] { transition-delay: 240ms; }
+
+/* === ACCESSIBILITY: reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .underlined-svg path { stroke-dashoffset: 0; }
+  /* v4: snap hero word reveal + support line to final state */
+  .hero-h1 .word { opacity: 1; transform: none; }
+  .hero-support { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a href="#top" class="brand-mark" aria-label="Ethan Glines, home">
+      <span class="dot" aria-hidden="true"></span>Ethan Glines
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#pitch">Pitch</a>
+      <a href="#work">Work</a>
+      <a href="#field-notes">Field Notes</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================
+       1. HERO
+       v4: H1 words wrapped in .word spans for letter-stagger reveal.
+       Support line gets .hero-support with its own opacity/translate
+       reveal; "industries" gets an inline hand-drawn underline.
+  ============================================================ -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Ethan Glines / Founder &middot; Operator</p>
+
+          <!-- Hero location stamp — palm is decorative, label carries the meaning -->
+          <span class="hero-stamp">
+            <span class="emoji" aria-hidden="true">&#127796;</span>
+            Laie, Hawaii
+          </span>
+
+          <h1 class="hero-h1" id="heroH1">
+            <span class="word">Strategy.</span> <span class="word">Brand.</span> <span class="word"><span class="underlined">Deliver<svg class="underlined-svg" id="heroUnderline" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C18,3 38,11 58,7 C78,4 96,10 118,6"/></svg></span>.</span>
+          </h1>
+
+          <p class="hero-support" id="heroSupport">
+            I&rsquo;ve done it twice. In two different <span class="underlined underlined--sm">industries<svg class="underlined-svg" id="industriesUnderline" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,9 C20,4 40,11 60,7 C80,3 100,10 118,6"/></svg></span>.
+          </p>
+
+          <p class="hero-mission">
+            I build brands and systems that make complex ideas obvious &mdash; turning two-minute explanations into five-second ones.
+          </p>
+
+          <a href="#work" class="hero-cta magnetic" data-magnetic>
+            See the work <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <div class="hero-photo-wrap">
+          <img
+            src="assets/headshot-ethan-glines.png"
+            alt="Portrait of Ethan Glines"
+            class="hero-photo"
+            width="440"
+            height="550"
+            loading="eager"
+            decoding="async">
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <span><strong>Based in</strong> &middot; United States</span>
+        <span><strong>Founder</strong> &middot; Blue Luna</span>
+        <span><strong>Studying</strong> &middot; BYU Hawaii</span>
+        <span><strong>Status</strong> &middot; Open to roles</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       v5 D — ELEVATOR PITCH MODULE
+       Custom-styled audio player (84px amber play button, 32-bar
+       waveform, thin progress bar, mono time) + Reed's 2-paragraph
+       script side-by-side. Audio source: assets/elevator-pitch.mp3
+  ============================================================ -->
+  <section class="elevator-pitch" id="pitch" aria-labelledby="pitch-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Elevator Pitch</p>
+        <h2 id="pitch-heading">Sixty seconds.</h2>
+      </div>
+
+      <div class="pitch-grid">
+
+        <!-- Left: Custom audio player -->
+        <div class="pitch-player reveal" data-delay="1">
+          <audio id="pitchAudio" preload="metadata" src="assets/elevator-pitch.mp3"></audio>
+
+          <button
+            class="pitch-play"
+            id="pitchPlayBtn"
+            type="button"
+            aria-label="Play elevator pitch"
+            aria-pressed="false"
+            aria-controls="pitchAudio">
+            <svg class="pitch-play-icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M5 3.5v17a1 1 0 0 0 1.55.83l13-8.5a1 1 0 0 0 0-1.66l-13-8.5A1 1 0 0 0 5 3.5z"/>
+            </svg>
+            <svg class="pitch-play-icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="6" y="4" width="4" height="16" rx="1"/>
+              <rect x="14" y="4" width="4" height="16" rx="1"/>
+            </svg>
+          </button>
+
+          <div class="pitch-meter">
+            <div class="pitch-waveform" id="pitchWaveform" aria-hidden="true">
+              <!-- 32 bars rendered by JS so heights stay programmatic + tunable -->
+            </div>
+            <div
+              class="pitch-progress"
+              id="pitchProgress"
+              role="slider"
+              tabindex="0"
+              aria-label="Audio progress, click or use arrow keys to seek"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0">
+              <div class="pitch-progress-fill" id="pitchProgressFill"></div>
+            </div>
+            <div class="pitch-time">
+              <span id="pitchCurrent">0:00</span>
+              <span class="pitch-time-sep" aria-hidden="true">/</span>
+              <span id="pitchDuration">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Written script (Reed's 2 paragraphs verbatim) -->
+        <div class="pitch-script reveal" data-delay="2">
+          <p class="pitch-script-label">Or read it</p>
+          <blockquote class="pitch-script-quote">
+            <p>
+              Utah summers hit 115 degrees, so Hawaii was an easy sell for my wife. We&rsquo;ve been here ever since &mdash; surfing, raising a family, and running the business remotely. The flexibility is the whole point.
+            </p>
+            <p>
+              For the last five years, I&rsquo;ve helped businesses clarify their messaging through video &mdash; blending strategy with storytelling so a prospect lands on the page, gets engaged, and actually understands how their problem gets solved. The videos do the work: revenue up year over year, customer loyalty up with it. Innovation and consistency are the values I build on, and those are the outcomes that prove it.
+            </p>
+          </blockquote>
+          <p class="pitch-script-attr">&mdash; Ethan</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. BIO / OPERATOR INTRO
+  ============================================================ -->
+  <section class="bio" id="about" aria-labelledby="about-heading">
+    <div class="wrap">
+      <div class="bio-grid">
+        <div class="bio-heading reveal">
+          <span class="section-rule" aria-hidden="true"></span>
+          <p class="eyebrow">About</p>
+          <h2 id="about-heading">Two businesses. Two industries. One operator.</h2>
+        </div>
+
+        <div class="bio-body reveal" data-delay="1">
+          <p>
+            I&rsquo;m Ethan Glines, founder of Blue Luna &mdash; a branding consultancy that takes founder-led businesses from invisible to obvious. I lead the strategy, write the copy, design the site, and deliver the build. One operator, end-to-end. Most recent client: SyTech, a records management firm whose two-minute pitch I compressed into a five-second headline they now lead with.
+          </p>
+          <p>
+            Before Blue Luna was a consultancy, it was Blue Luna Media &mdash; cinematic editing for seven-figure brands. Between then and now, I founded a second business in a completely different industry: Travel With Glines, an international travel agency I branded, sold, and delivered a 12-day Patagonia <span class="emoji emoji--inline" role="img" aria-label="mountain">&#127956;&#65039;</span> trip out of. I&rsquo;m currently finishing a finance degree at BYU Hawaii. Same playbook every time: strategize, brand, deliver.
+          </p>
+          <p class="bio-currently">
+            <strong>Currently delivering</strong> &middot; Blue Luna client work
+          </p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           "Where I've been" — country flag strip
+      ============================================================ -->
+      <figure class="travel-strip reveal" data-delay="2">
+        <figcaption>Where I&rsquo;ve been</figcaption>
+        <ul class="travel-flags" role="list">
+          <li>
+            <span class="flag" role="img" aria-label="USA flag">&#127482;&#127480;</span>
+            <span class="label">USA</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Japan flag">&#127471;&#127477;</span>
+            <span class="label">Japan</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Philippines flag">&#127477;&#127469;</span>
+            <span class="label">Philippines</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Singapore flag">&#127480;&#127468;</span>
+            <span class="label">Singapore</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Indonesia flag">&#127470;&#127465;</span>
+            <span class="label">Indonesia</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Fiji flag">&#127467;&#127471;</span>
+            <span class="label">Fiji</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="France flag">&#127467;&#127479;</span>
+            <span class="label">France</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Mexico flag">&#127474;&#127485;</span>
+            <span class="label">Mexico</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Peru flag">&#127477;&#127466;</span>
+            <span class="label">Peru</span>
+          </li>
+          <li>
+            <span class="flag" role="img" aria-label="Chile flag">&#127464;&#127473;</span>
+            <span class="label">Chile</span>
+          </li>
+        </ul>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       v4 #1 — STAT STRIP (count-up)
+       Lives between Bio and Selected Work.
+       Each .stat-number[data-target] is animated by JS via IntersectionObserver.
+  ============================================================ -->
+  <section class="stat-strip" aria-label="Operator stats">
+    <div class="wrap">
+      <div class="stat-grid">
+        <div class="stat-item">
+          <span class="stat-number" data-target="2" aria-live="polite">0</span>
+          <span class="stat-label">Businesses founded</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="10" aria-live="polite">0</span>
+          <span class="stat-label">Countries visited</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="9" aria-live="polite">0</span>
+          <span class="stat-label">Travelers led to Patagonia</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="5" data-plus="true" aria-live="polite">0<span class="plus" aria-hidden="true">+</span></span>
+          <span class="stat-label">Years operating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       v5 A — CASE STUDIES (replaces "Selected Work")
+       Three full case studies in editorial long-form:
+         01 SyTech (most recent client work — current consultancy proof)
+         02 Blue Luna (current consultancy evolution)
+         03 Travel With Glines (second business — "twice, two industries" proof)
+       Anchor #work preserved from v4.
+  ============================================================ -->
+  <section class="case-studies" id="work" aria-labelledby="work-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Selected Work</p>
+        <h2 id="work-heading">Three case <span class="underlined underlined--sm">studies<svg class="underlined-svg scroll-draw" id="studiesUnderline" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C20,4 38,11 60,7 C82,3 100,11 118,6"/></svg></span>. One operator playbook.</h2>
+      </div>
+
+      <!-- Case Study 01 — SyTech -->
+      <article class="case-study reveal" aria-labelledby="cs-sytech-title">
+        <div class="case-study-grid">
+          <aside class="case-study-meta">
+            <p class="case-study-index" aria-hidden="true">01</p>
+            <h3 class="case-study-title" id="cs-sytech-title">SyTech</h3>
+            <p class="case-study-subtitle">Records Management Firm Rebrand &amp; Multipage Site</p>
+            <div class="case-study-meta-strip">
+              <span><strong>Role</strong> &middot; Lead Strategist, Copywriter, Builder</span>
+              <span><strong>Year</strong> &middot; 2026</span>
+              <span><strong>Industry</strong> &middot; Public Sector Tech</span>
+            </div>
+            <blockquote class="case-study-quote">
+              <p>A two-minute pitch is a confession that you don&rsquo;t know your own <span class="underlined underlined--sm">value<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,9 C20,3 40,11 60,7 C80,4 100,11 118,6"/></svg></span> yet. My job is to find the five-second version that&rsquo;s already in there.</p>
+            </blockquote>
+          </aside>
+
+          <div class="case-study-body">
+            <div class="case-study-block">
+              <p class="case-study-label">The challenge</p>
+              <p>SyTech had 25 years of work and 800 million records digitized to their name, and a pitch that took two minutes to land. Public agency buyers were nodding politely and not calling back. The work was elite. The brand was burying it.</p>
+            </div>
+            <div class="case-study-block">
+              <p class="case-study-label">What I did</p>
+              <ul class="case-study-list">
+                <li>Compressed the two-minute pitch into a five-second hero headline &mdash; <em>Records Management Problems Solved</em> &mdash; and locked it as the line they now lead with in every room.</li>
+                <li>Rebuilt the messaging architecture around their internal framework (Organize. Unify. Scale.) so the homepage tells the whole story in under 220 words.</li>
+                <li>Wrote, designed, and shipped a twelve-page site &mdash; homepage, eight solution subpages, mega-menu, shared CSS system &mdash; with a cinematic horizontal-scroll hero that does the storytelling so the copy can stay quiet.</li>
+                <li>Held the line on data sovereignty as the single sharpest differentiator and removed every word of SaaS-speak from the site.</li>
+              </ul>
+            </div>
+            <div class="case-study-block">
+              <p class="case-study-label">The outcome</p>
+              <p>Site is live in production. The five-second headline is the client&rsquo;s new lead-in for sales calls and proposals. The Organize/Unify/Scale framework &mdash; previously buried in a deck &mdash; is now the spine of how they explain themselves publicly.</p>
+            </div>
+            <a href="https://ethan-glines.github.io/SyTech-Website/index.html" class="case-study-cta magnetic" data-magnetic target="_blank" rel="noopener noreferrer">
+              View SyTech live <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case Study 02 — Blue Luna -->
+      <article class="case-study reveal" aria-labelledby="cs-blueluna-title">
+        <div class="case-study-grid">
+          <aside class="case-study-meta">
+            <p class="case-study-index" aria-hidden="true">02</p>
+            <h3 class="case-study-title" id="cs-blueluna-title">Blue Luna</h3>
+            <p class="case-study-subtitle">Strategic Repositioning &amp; Brand System</p>
+            <figure class="case-study-image">
+              <img
+                src="assets/blue-luna-brand-hero.png"
+                alt="Blue Luna branding consultancy &mdash; We think brands. Then we build them."
+                loading="lazy"
+                decoding="async">
+            </figure>
+            <div class="case-study-meta-strip">
+              <span><strong>Role</strong> &middot; Founder, Strategist, Copywriter, Designer</span>
+              <span><strong>Year</strong> &middot; 2026</span>
+              <span><strong>Industry</strong> &middot; Branding Consultancy</span>
+            </div>
+            <blockquote class="case-study-quote">
+              <p>The hardest brand to write is your own. There&rsquo;s nowhere to hide behind a client&rsquo;s voice &mdash; you have to actually <span class="underlined underlined--sm">decide<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C18,4 38,11 58,7 C78,3 98,10 118,6"/></svg></span> what you believe.</p>
+            </blockquote>
+          </aside>
+
+          <div class="case-study-body">
+            <div class="case-study-block">
+              <p class="case-study-label">The challenge</p>
+              <p>Blue Luna was a video editing shop that kept drifting upstream &mdash; I was advising clients on what to say and why before I ever touched a timeline. The brand still said &ldquo;video agency.&rdquo; The work had outgrown the name. Repositioning meant rebuilding the consultancy from the strategy out, with myself as the test client.</p>
+            </div>
+            <div class="case-study-block">
+              <p class="case-study-label">What I did</p>
+              <ul class="case-study-list">
+                <li>Wrote the positioning: the only branding consultancy in the $5K&ndash;$25K range that combines deep strategy with full creative implementation &mdash; identity, web, content, AI workflow &mdash; under one operator.</li>
+                <li>Built the messaging system end to end: brand narrative, voice guide, value propositions by segment, and a four-tagline architecture (hero, mantra, boilerplate, close) so the right words show up in the right room.</li>
+                <li>Landed the strategic flywheel &mdash; <em>Think. Build. Grow.</em> &mdash; as the structural device that organizes the website, the proposal template, the pitch deck, and the service architecture.</li>
+              </ul>
+            </div>
+            <div class="case-study-block">
+              <p class="case-study-label">The outcome</p>
+              <p>Five service pillars defined. Full brand and verbal identity system locked. Dark-theme website in build. The consultancy now sells what I was already doing &mdash; strategy plus implementation &mdash; instead of the service line I&rsquo;d outgrown.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case Study 03 — Travel With Glines -->
+      <article class="case-study reveal" aria-labelledby="cs-twg-title">
+        <div class="case-study-grid">
+          <aside class="case-study-meta">
+            <p class="case-study-index" aria-hidden="true">03</p>
+            <h3 class="case-study-title" id="cs-twg-title">Travel With Glines</h3>
+            <p class="case-study-subtitle">Founding a Travel Agency from a Gap in the Market</p>
+            <div class="case-study-meta-strip">
+              <span><strong>Role</strong> &middot; Founder, Travel Agent, International Tour Guide</span>
+              <span><strong>Year</strong> &middot; 2022&ndash;2023</span>
+              <span><strong>Industry</strong> &middot; Adventure Travel</span>
+            </div>
+            <blockquote class="case-study-quote">
+              <p>The trip ended. The <span class="underlined underlined--sm">friendships<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C20,4 40,11 60,7 C80,3 100,10 118,6"/></svg></span> didn&rsquo;t. That&rsquo;s the rarest thing a travel brand can deliver, and it&rsquo;s the reason I&rsquo;d build the next one the same way.</p>
+            </blockquote>
+          </aside>
+
+          <div class="case-study-body">
+            <div class="case-study-block">
+              <p class="case-study-label">The challenge</p>
+              <p>Every young adult I knew was booking the same trip &mdash; Europe, Asia, the photo carousel everyone else was already running. Almost no one was looking at Patagonia, which I&rsquo;d lived near and knew was one of the safest, most cinematic places on the continent. The gap wasn&rsquo;t a marketing problem. It was a perspective problem &mdash; people couldn&rsquo;t sell a place they&rsquo;d never stood in.</p>
+            </div>
+            <div class="case-study-block">
+              <p class="case-study-label">What I did</p>
+              <ul class="case-study-list">
+                <li>Founded Travel With Glines as a young-adult travel agency built around destinations most operators were ignoring.</li>
+                <li>Designed a twelve-day Patagonia itinerary end to end &mdash; flights, lodging, national park routing, sightseeing, shopping, the unscripted hours that make a trip feel like yours.</li>
+                <li>Verified every traveler&rsquo;s passport and ID, collected deposits, locked final payments, and handled all bookings for nine travelers personally.</li>
+                <li>Guided the trip on the ground in Southern Chile &mdash; translator, fixer, and host for the full twelve days.</li>
+              </ul>
+            </div>
+            <div class="case-study-block">
+              <p class="case-study-label">The outcome</p>
+              <p>Nine travelers, one country, zero things broken. The trip delivered. The more interesting result wasn&rsquo;t the itinerary &mdash; it was that the nine strangers who flew out together became friends I still talk to years later. The business wrapped after one run. The relationships didn&rsquo;t.</p>
+            </div>
+            <a href="https://youtu.be/fqX1S4PRiKI" class="case-study-cta magnetic" data-magnetic target="_blank" rel="noopener noreferrer">
+              Watch the Patagonia trip <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TWG editorial gallery — horizontal scroll-snap strip.
+             Sits inside the case study card (same width as 01/02), spans
+             card-interior edge-to-edge via negative margins. -->
+        <div class="cs-gallery" role="region" aria-label="Patagonia trip gallery">
+          <p class="cs-gallery-label">
+            <span>Field gallery</span>
+            <span class="arrow" aria-hidden="true">&rarr;</span>
+            <span style="color: var(--neutral); letter-spacing: 0.1em;">Drag to see more</span>
+          </p>
+          <div class="cs-gallery-scroller" tabindex="0" aria-label="Scroll horizontally to see more">
+
+            <!-- Video item — YouTube thumbnail with custom amber play button -->
+            <a
+              href="https://youtu.be/fqX1S4PRiKI"
+              class="cs-gallery-item cs-gallery-item--video"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Watch the Patagonia trip video on YouTube (opens in new tab)">
+              <img
+                src="https://img.youtube.com/vi/fqX1S4PRiKI/maxresdefault.jpg"
+                alt="Travel With Glines Patagonia trip recap video thumbnail"
+                loading="lazy"
+                decoding="async">
+              <span class="cs-gallery-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M5 3.5v17a1 1 0 0 0 1.55.83l13-8.5a1 1 0 0 0 0-1.66l-13-8.5A1 1 0 0 0 5 3.5z"/>
+                </svg>
+              </span>
+            </a>
+
+            <!-- Photo: patagonia-03 (hikers descending) -->
+            <div class="cs-gallery-item">
+              <img
+                src="assets/patagonia/patagonia-03.jpg"
+                alt="Travelers descending a granite scree slope in Torres del Paine National Park, Southern Chile."
+                loading="lazy"
+                decoding="async">
+            </div>
+
+            <!-- Photo: patagonia-05 (Torres del Paine towers) -->
+            <div class="cs-gallery-item">
+              <img
+                src="assets/patagonia/patagonia-05.jpg"
+                alt="Torres del Paine granite towers rising above a turquoise glacial lake in Southern Chile."
+                loading="lazy"
+                decoding="async">
+            </div>
+
+            <!-- Photo: patagonia-08 (group at trailhead) -->
+            <div class="cs-gallery-item">
+              <img
+                src="assets/patagonia/patagonia-08.jpg"
+                alt="The Travel With Glines group of nine travelers gathered at a Patagonia national park entrance."
+                loading="lazy"
+                decoding="async">
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. EXPERIENCE TIMELINE
+  ============================================================ -->
+  <section class="timeline-section" id="timeline" aria-labelledby="timeline-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Experience</p>
+        <h2 id="timeline-heading">How I got here.</h2>
+        <p class="timeline-intro">A short record of what I&rsquo;ve delivered, built, and led.</p>
+      </div>
+
+      <ol class="timeline" role="list">
+        <li class="timeline-item reveal">
+          <span class="timeline-date">2026 &mdash; May</span>
+          <p class="timeline-body"><strong>Delivered SyTech&rsquo;s homepage.</strong> Multi-page brand site, live in production.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-date">2024 &mdash; Present</span>
+          <p class="timeline-body"><strong>BYU Hawaii</strong> &mdash; Bachelor of Business Management, Finance. Dean&rsquo;s List. Graduating June 2027.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-date">2023</span>
+          <p class="timeline-body"><strong>Volunteered with Humanitarian XP in Lima, Peru <span class="emoji emoji--inline" role="img" aria-label="llama">&#129420;</span></strong> &mdash; helped lead 35+ teenagers and a school build over the summer.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-date">2022 &mdash; 2023</span>
+          <p class="timeline-body"><strong>Founded Travel With Glines</strong> &mdash; branded, sold, and delivered a 12-day Patagonia <span class="emoji emoji--inline" role="img" aria-label="mountain">&#127956;&#65039;</span> trip for 9 travelers in Southern Chile.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-date">2021 &mdash; Present</span>
+          <p class="timeline-body"><strong>Founded Blue Luna</strong> (originally Blue Luna Media). Cinematic editing for seven-figure brands evolved into a full branding consultancy. Recent client: SyTech.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-date">Before that</span>
+          <p class="timeline-body">Made things. Sold them. Learned by doing.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       v5 B — FIELD NOTES
+       5 editorial-format cards adapted from LinkedIn posts.
+       Hashtags stripped. Engagement counts omitted. Hand-drawn
+       underlines cycle through titles on cards 1, 3, and 5.
+  ============================================================ -->
+  <section class="field-notes" id="field-notes" aria-labelledby="field-notes-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Field Notes</p>
+        <h2 id="field-notes-heading">What I&rsquo;m <span class="underlined underlined--sm">noticing<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C20,4 38,11 60,7 C82,3 100,11 118,6"/></svg></span>.</h2>
+        <p class="section-subhead">Short essays on marketing, branding, and operating in the wild. Originally posted to LinkedIn &mdash; restored here in their full form.</p>
+      </div>
+
+      <div class="field-notes-grid">
+
+        <!-- 01 — Why "Coke People" Stay Loyal -->
+        <article class="field-note reveal" aria-labelledby="fn-01-title">
+          <div class="field-note-meta">
+            <span class="field-note-num">01</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>~2 days ago</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>Brand Loyalty</span>
+          </div>
+          <h3 class="field-note-title" id="fn-01-title">Why &ldquo;Coke People&rdquo; Stay <span class="underlined underlined--sm">Loyal<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C18,4 38,11 58,7 C78,3 98,10 118,6"/></svg></span></h3>
+          <div class="field-note-body" id="fn-01-body">
+            <p>Over the last 10 years, I&rsquo;ve been able to try Coca-Cola in over 10 countries, each with its own distinct flavor that reflected the local culture. <span class="emoji emoji--inline" role="img" aria-label="globe">&#127757;</span></p>
+            <p>Most people grab a soda out of habitual buying behavior, including myself, as I&rsquo;m not much of a variety-seeker. So when I recently sat down for a History Channel documentary on the Cola Wars and ran a blind taste test, I was all in. <span class="emoji emoji--inline" role="img" aria-label="cup with straw">&#129418;</span></p>
+            <p>Lo and behold, I picked out my favorite right away. If you&rsquo;ve never really had a cola, Coke and Pepsi taste nearly the same. But for those of us who are fans, the difference is very real.</p>
+            <p>The documentary covers the decades-long war between Coca-Cola and Pepsi. It was crazy to learn about the Pepsi Challenge and how Coke launched New Coke as a brand-new product in 1985. It flopped hard, and customers were furious! I know if I were alive then, I would be as well... <span class="emoji emoji--inline" role="img" aria-label="upside-down face">&#128579;</span></p>
+            <p>It tied right into what I&rsquo;d been reading on consumer buyer behavior. New Coke failed because the choice was never about taste; it was about perception and emotion. People didn&rsquo;t just want a drink; they wanted the version of Coke that fit their lifestyle and identity.</p>
+            <p>So how do people choose when products are this similar? Honestly, the product stops being the point. <span class="emoji emoji--inline" role="img" aria-label="brain">&#129504;</span> People buy the brand they feel connected to, which is why someone will proudly call themselves a &ldquo;Coke person.&rdquo;</p>
+            <p>In a crowded market, you&rsquo;re not selling a product; you&rsquo;re selling a feeling people want to be part of. <span class="emoji emoji--inline" role="img" aria-label="sparkles">&#10024;</span></p>
+          </div>
+          <button type="button" class="field-note-toggle" aria-expanded="false" aria-controls="fn-01-body">
+            <span class="toggle-label-more">Read more</span><span class="toggle-label-less">Read less</span>
+            <span class="toggle-arrow" aria-hidden="true">&#9662;</span>
+          </button>
+          <footer class="field-note-footer">
+            <a href="https://www.linkedin.com/posts/ethanglines_byuh-byuhawaii-marketing-ugcPost-7464796756493627393-0BaR/" class="field-note-source" target="_blank" rel="noopener noreferrer">
+              Read on LinkedIn <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </footer>
+        </article>
+
+        <!-- 02 — The Doctor in the Empty Waiting Room -->
+        <article class="field-note reveal" data-delay="1" aria-labelledby="fn-02-title">
+          <div class="field-note-meta">
+            <span class="field-note-num">02</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>~1 week ago</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>Market Research</span>
+          </div>
+          <h3 class="field-note-title" id="fn-02-title">The Doctor in the <span class="underlined underlined--sm">Empty<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C18,4 38,11 58,7 C78,3 98,10 118,6"/></svg></span> Waiting Room</h3>
+          <div class="field-note-body" id="fn-02-body">
+            <p>As a small business owner, it&rsquo;s been really interesting trying to identify my target audience. Who do I actually want to help solve their brand positioning challenges?</p>
+            <p>I&rsquo;ve had clients that are 7-figure businesses and others who are just getting started. Surprisingly, the process of helping them is quite similar. But finding them? That&rsquo;s where the similarities disappear. <span class="emoji emoji--inline" role="img" aria-label="magnifying glass">&#128269;</span></p>
+            <p>Recently I dove deep into market research, and it tied directly into what I&rsquo;ve been wrestling with at work. Positioning matters, but it means nothing if the right people can&rsquo;t find you. It&rsquo;s like a doctor with a cure for an illness, but no one knows he&rsquo;s a doctor. <span class="emoji emoji--inline" role="img" aria-label="stethoscope">&#129650;</span></p>
+            <p>At Blue Luna, we&rsquo;re currently narrowing down our target customer using a mix of primary data we collect ourselves and secondary data from outside sources, including AI search engines that are giving us a whole new layer of customer insights we didn&rsquo;t have access to a year ago. <span class="emoji emoji--inline" role="img" aria-label="bar chart">&#128202;</span></p>
+            <p>Big data and marketing analytics are making this kind of research more accessible and affordable than ever for small businesses like ours. <span class="emoji emoji--inline" role="img" aria-label="robot">&#129302;</span></p>
+            <p>Big takeaway: even the best positioning is useless without research to back it up. Without that, you&rsquo;re just a great doctor in an empty waiting room. <span class="emoji emoji--inline" role="img" aria-label="sparkles">&#10024;</span></p>
+          </div>
+          <button type="button" class="field-note-toggle" aria-expanded="false" aria-controls="fn-02-body">
+            <span class="toggle-label-more">Read more</span><span class="toggle-label-less">Read less</span>
+            <span class="toggle-arrow" aria-hidden="true">&#9662;</span>
+          </button>
+          <footer class="field-note-footer">
+            <a href="https://www.linkedin.com/posts/ethanglines_byuh-byuhawaii-marketing-ugcPost-7462328874140422144-b0-L/" class="field-note-source" target="_blank" rel="noopener noreferrer">
+              Read on LinkedIn <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </footer>
+        </article>
+
+        <!-- 03 — Saving a Star From Becoming a Dog -->
+        <article class="field-note reveal" data-delay="2" aria-labelledby="fn-03-title">
+          <div class="field-note-meta">
+            <span class="field-note-num">03</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>~2 weeks ago</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>Strategy</span>
+          </div>
+          <h3 class="field-note-title" id="fn-03-title">Saving a Star From Becoming a <span class="underlined underlined--sm">Dog<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,9 C20,3 40,11 60,7 C80,4 100,11 118,6"/></svg></span></h3>
+          <div class="field-note-body" id="fn-03-body">
+            <p>As an entrepreneur, I dream of one day owning a portfolio of businesses to run, scale, exit, and repeat. <span class="emoji emoji--inline" role="img" aria-label="briefcase">&#128188;</span> It&rsquo;s one of the major reasons I&rsquo;m studying finance. The principles are timeless and carry over into every industry.</p>
+            <p>However, I recently came across a perspective that honestly changed how I think about organizing a business portfolio.</p>
+            <p>We studied Johnson &amp; Johnson, a company most people know for BAND-AID, Tylenol, and Johnson&rsquo;s baby shampoo. But those iconic consumer brands only make up about 15% of J&amp;J&rsquo;s $94 billion in annual revenue. The real bulk comes from their pharmaceutical and medical device businesses. That kind of diversification made their business portfolio so complex that J&amp;J recently made a major strategic planning move: splitting into two separate companies. <span class="emoji emoji--inline" role="img" aria-label="bar chart">&#128202;</span></p>
+            <p>Their portfolio analysis used the BCG growth-share matrix, which sorts every business unit into stars, cash cows, question marks, or dogs based on market growth and market share. <span class="emoji emoji--inline" role="img" aria-label="dog">&#128021;</span></p>
+            <p>Here&rsquo;s what really opened my eyes: identifying which products to keep or drop isn&rsquo;t just a finance call. Finance can run the numbers all day, but without marketing&rsquo;s view of the customer and the market, you might end up keeping a &ldquo;dog&rdquo; or killing a future &ldquo;star.&rdquo; <span class="emoji emoji--inline" role="img" aria-label="lightbulb">&#128161;</span></p>
+            <p>Big takeaway: even if I want to build, scale, and exit businesses one day, I&rsquo;ll never be able to do it well with just a spreadsheet. We need the perspectives of every department, including marketing, to make the most informed decisions. <span class="emoji emoji--inline" role="img" aria-label="rocket">&#128640;</span></p>
+          </div>
+          <button type="button" class="field-note-toggle" aria-expanded="false" aria-controls="fn-03-body">
+            <span class="toggle-label-more">Read more</span><span class="toggle-label-less">Read less</span>
+            <span class="toggle-arrow" aria-hidden="true">&#9662;</span>
+          </button>
+          <footer class="field-note-footer">
+            <a href="https://www.linkedin.com/posts/ethanglines_byuh-byuhawaii-marketing-share-7459764259036766208-7lug/" class="field-note-source" target="_blank" rel="noopener noreferrer">
+              Read on LinkedIn <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </footer>
+        </article>
+
+        <!-- 04 — The Photo Sold the Ramen -->
+        <article class="field-note reveal" aria-labelledby="fn-04-title">
+          <div class="field-note-meta">
+            <span class="field-note-num">04</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>~3 weeks ago</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>Marketing Myopia</span>
+          </div>
+          <h3 class="field-note-title" id="fn-04-title">The Photo Sold the Ramen</h3>
+          <div class="field-note-body" id="fn-04-body">
+            <p>The Japanese really know how to make amazing food... But it wasn&rsquo;t the taste that pulled us through the door. It was something way simpler. <span class="emoji emoji--inline" role="img" aria-label="selfie">&#129331;&#127995;</span><span class="emoji emoji--inline" role="img" aria-label="sushi">&#127843;</span></p>
+            <p>We just went to Japan in April, and it was an amazing trip, country, and culture. <span class="emoji emoji--inline" role="img" aria-label="Japan flag">&#127471;&#127477;</span> We were so impressed by the hospitality and kindness from the Japanese people, and we already look forward to going back!</p>
+            <p>One thing became really clear about halfway through the trip. Every time we were hungry, looking for a restaurant to eat at, which in Tokyo and Kyoto means thousands of options, we were only going to eat at places where the food looked delicious in their menu photos, Google storefront pictures, or window advertisements. <span class="emoji emoji--inline" role="img" aria-label="camera">&#128248;</span></p>
+            <p>If the photos didn&rsquo;t look appealing, we kept walking and searching for somewhere else.</p>
+            <p>Looking at it through a marketing lens, our need for food was real (we were starving most days from all the walking), but our wants were a lot more specific. We wanted ramen that looked rich, sushi that looked fresh, and gyoza with crispy bottoms. Since we had money in our pockets ready to spend, those wants basically turned into demands.</p>
+            <p>The places with dismal marketing lost us as customers. I&rsquo;m sure some of them had amazing food, but we just weren&rsquo;t drawn to their offering. That&rsquo;s marketing myopia in action: focusing so much on the food itself that the restaurant forgets how customers actually choose where to eat. No appealing photos meant no exchange ever happened, because we never even walked through the door. <span class="emoji emoji--inline" role="img" aria-label="door">&#128682;</span></p>
+            <p>The places that nailed their visuals got more than our money. They got our customer satisfaction and our recommendations to other travelers we ran into during the trip. <span class="emoji emoji--inline" role="img" aria-label="ramen">&#127836;</span></p>
+            <p>Honestly, especially in a foreign country where we couldn&rsquo;t read the menu, the photos made the decision for us. Marketing matters way more than I realized, even before anyone takes a bite. <span class="emoji emoji--inline" role="img" aria-label="sparkles">&#10024;</span></p>
+          </div>
+          <button type="button" class="field-note-toggle" aria-expanded="false" aria-controls="fn-04-body">
+            <span class="toggle-label-more">Read more</span><span class="toggle-label-less">Read less</span>
+            <span class="toggle-arrow" aria-hidden="true">&#9662;</span>
+          </button>
+          <footer class="field-note-footer">
+            <a href="https://www.linkedin.com/posts/ethanglines_byuh-byuhawaii-marketing-ugcPost-7457228583598600192-z4Pj/" class="field-note-source" target="_blank" rel="noopener noreferrer">
+              Read on LinkedIn <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </footer>
+        </article>
+
+        <!-- 05 — Two Humans, Twenty-Eight AI Roles -->
+        <article class="field-note reveal" data-delay="1" aria-labelledby="fn-05-title">
+          <div class="field-note-meta">
+            <span class="field-note-num">05</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>~1 month ago</span>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>AI Workflow</span>
+          </div>
+          <h3 class="field-note-title" id="fn-05-title">Two Humans, Twenty-Eight <span class="underlined underlined--sm">AI Roles<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C20,4 38,11 60,7 C82,3 100,11 118,6"/></svg></span></h3>
+          <div class="field-note-body" id="fn-05-body">
+            <p>I cancelled my Notion subscription this week. And what I replaced it with kind of blew my mind.</p>
+            <p>It started with a YouTube video by Dr. Thomas Roedl. He walked through how you can use Claude Code to build your own system for storing and organizing all of your notes, files, and business information right on your computer instead of paying for tools like Notion.</p>
+            <p>But the deeper I got into his content, the more I realized this guy isn&rsquo;t just teaching productivity tips. He&rsquo;s running his entire business with two humans and 28 AI assistants, each one with a specific job like video editing, YouTube strategy, copywriting, and even a &ldquo;fox&rdquo; named Larry who manages the whole team.</p>
+            <p>Two people. Twenty-eight AI roles. That&rsquo;s it.</p>
+            <p>That concept alone rewired how I&rsquo;m thinking about my own business.</p>
+            <p>But back to the practical side. I&rsquo;ve used Notion for a long time and it worked fine. But I&rsquo;m tired of paying for a dozen different subscriptions when I don&rsquo;t have to. Using just my Claude Code subscription, I built my own system that stores everything I need, organized the way my brain actually works. I can update it whenever I want, ask Claude to find things in my files, and it just works. And the more I use it, the smarter it gets because it learns from everything I feed it.</p>
+            <p>What really ties it all together is Tom&rsquo;s ICOR framework, which stands for Input, Control, Output, Refine. The idea is simple. Tools will always change, but your system underneath shouldn&rsquo;t have to be rebuilt every time you switch apps.</p>
+            <p>That hit home for me because I&rsquo;ve been that person who jumps from tool to tool and starts over every single time.</p>
+            <p>I&rsquo;ve shared this setup with a few friends and it&rsquo;s already changing how they work too. I&rsquo;ll drop the video link in the comments for anyone who wants to check it out.</p>
+          </div>
+          <button type="button" class="field-note-toggle" aria-expanded="false" aria-controls="fn-05-body">
+            <span class="toggle-label-more">Read more</span><span class="toggle-label-less">Read less</span>
+            <span class="toggle-arrow" aria-hidden="true">&#9662;</span>
+          </button>
+          <footer class="field-note-footer">
+            <a href="https://www.linkedin.com/posts/ethanglines_knowledgemanagement-icor-claudecode-share-7448221052410834944-DcUP/" class="field-note-source" target="_blank" rel="noopener noreferrer">
+              Read on LinkedIn <span class="arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </footer>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. CAPABILITIES STRIP
+  ============================================================ -->
+  <section class="capabilities" id="capabilities" aria-labelledby="caps-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Capabilities</p>
+        <h2 id="caps-heading">What I do.</h2>
+      </div>
+
+      <div class="caps-grid">
+        <div class="cap-item reveal">
+          <span class="cap-icon emoji" role="img" aria-label="Compass">&#129517;</span>
+          <p class="cap-number">01</p>
+          <p class="cap-label">Brand Strategy</p>
+          <p class="cap-desc">Positioning, messaging, and the foundation everything else stands on.</p>
+        </div>
+        <div class="cap-item reveal" data-delay="1">
+          <span class="cap-icon emoji" role="img" aria-label="Writing hand">&#9997;&#65039;</span>
+          <p class="cap-number">02</p>
+          <p class="cap-label">Marketing &amp; Copy</p>
+          <p class="cap-desc">Storytelling that earns attention. Web copy, ad copy, and brand narratives.</p>
+        </div>
+        <div class="cap-item reveal" data-delay="2">
+          <span class="cap-icon emoji" role="img" aria-label="Laptop">&#128187;</span>
+          <p class="cap-number">03</p>
+          <p class="cap-label">Design &amp; Web Build</p>
+          <p class="cap-desc">Visual systems and production code that deliver together, not just mockups.</p>
+        </div>
+        <div class="cap-item reveal">
+          <span class="cap-icon emoji" role="img" aria-label="Handshake">&#129309;</span>
+          <p class="cap-number">04</p>
+          <p class="cap-label">Sales &amp; Operations</p>
+          <p class="cap-desc">Customer acquisition through execution. Closing the work and getting it out the door.</p>
+        </div>
+        <div class="cap-item reveal" data-delay="1">
+          <span class="cap-icon emoji" role="img" aria-label="Bar chart">&#128202;</span>
+          <p class="cap-number">05</p>
+          <p class="cap-label">Finance</p>
+          <p class="cap-desc">The business-management foundation underneath every venture. Currently studying finance at BYU Hawaii.</p>
+        </div>
+        <div class="cap-item reveal" data-delay="2">
+          <span class="cap-icon emoji" role="img" aria-label="Rocket">&#128640;</span>
+          <p class="cap-number">06</p>
+          <p class="cap-label">Project Leadership</p>
+          <p class="cap-desc">Owning briefs, timelines, and deadlines from kickoff through completion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       v5 C — CREDENTIALS
+       Amber-tinted name plates with issuer initials in Fraunces
+       (NOT provider logos). System extensible: add more <a.credential>
+       blocks to the grid to scale to 4-8 cards cleanly.
+  ============================================================ -->
+  <section class="credentials" id="credentials" aria-labelledby="credentials-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Credentials</p>
+        <h2 id="credentials-heading">Certified. <span class="underlined underlined--sm">Verified<svg class="underlined-svg scroll-draw" viewBox="0 0 120 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2,8 C20,4 38,11 60,7 C82,3 100,11 118,6"/></svg></span>. Linked.</h2>
+      </div>
+
+      <div class="credentials-grid">
+
+        <a
+          class="credential reveal"
+          href="https://app-na2.hubspot.com/academy/achievements/fthvrd5w/en/1/ethan-glines/digital-marketing"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Verify HubSpot Digital Marketing credential (opens in new tab)">
+          <div class="credential-mark" aria-hidden="true">
+            <span class="credential-mark-glyph">HS</span>
+          </div>
+          <div class="credential-body">
+            <p class="credential-issuer">HubSpot Academy</p>
+            <h3 class="credential-name">Digital Marketing</h3>
+            <p class="credential-meta">
+              <span class="credential-verify">Verify <span class="arrow" aria-hidden="true">&#8599;</span></span>
+            </p>
+          </div>
+        </a>
+
+        <a
+          class="credential reveal"
+          href="https://www.linkedin.com/learning/certificates/40f1ac3967c521dbd28fb4b2f82c6ac2ee96b8aa7809aeb86e7812f794f439a9"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Verify Canva Essential Training certificate on LinkedIn Learning (opens in new tab)">
+          <div class="credential-mark" aria-hidden="true">
+            <span class="credential-mark-glyph">LL</span>
+          </div>
+          <div class="credential-body">
+            <p class="credential-issuer">LinkedIn Learning</p>
+            <h3 class="credential-name">Canva Essential Training</h3>
+            <p class="credential-meta">
+              <span class="credential-verify">Verify <span class="arrow" aria-hidden="true">&#8599;</span></span>
+              <span class="credential-sep" aria-hidden="true">&bull;</span>
+              <span>Jan 2026</span>
+            </p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6. RESUME
+  ============================================================ -->
+  <section class="resume" id="resume" aria-labelledby="resume-heading">
+    <div class="wrap">
+      <div class="resume-grid">
+        <div class="reveal">
+          <span class="section-rule" aria-hidden="true"></span>
+          <p class="eyebrow">Resume</p>
+          <h2 id="resume-heading">The short version.</h2>
+        </div>
+        <div class="reveal" data-delay="1">
+          <p class="resume-intro">
+            The short version of everything above, formatted for fast scanning. Education, founder experience, language fluency, and the references who&rsquo;ll back the work up.
+          </p>
+          <p class="resume-contents">
+            Includes BYU Hawaii degree progress, Blue Luna (consultancy) leadership, Travel With Glines founder role, humanitarian service in Lima, languages, and professional references.
+          </p>
+          <a href="resume/ethan-glines-resume.pdf" download class="btn-download magnetic" data-magnetic aria-label="Download Ethan Glines resume as PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Resume (PDF)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--
+  TESTIMONIAL SECTION — TEMPORARILY HIDDEN
+  Awaiting real endorsement quotes from Bryan Golden (SyTech CEO) and Hayden Schaap (Schaap Consulting CEO).
+  To re-enable: remove the surrounding HTML comments and swap the placeholder quote text inside the <blockquote> tags with the real endorsements.
+-->
+<!--
+  <!~~ ============================================================
+       v4 #4 — TESTIMONIALS
+       Two quote cards. BOTH quotes are PLACEHOLDERS — flagged below.
+  ============================================================ ~~>
+  <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="eyebrow">Testimonials</p>
+        <h2 id="testimonials-heading">What people say.</h2>
+      </div>
+
+      <div class="testi-grid">
+
+        <!~~ ============================================================
+             PLACEHOLDER QUOTE — REPLACE WITH REAL ENDORSEMENT FROM BRYAN GOLDEN
+             Status: awaiting real endorsement
+             Source: copy drafted by team, NOT confirmed by Bryan
+             Action: Jen to remind Ethan to request a real quote from Bryan
+        ============================================================ ~~>
+        <figure class="testi-card reveal">
+          <span class="testi-quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testi-quote">
+            Ethan delivered the kind of brand strategy work I&rsquo;d expect from a senior consultant. The SyTech site shipped on time, on brief, and immediately changed how prospects understood us.
+          </blockquote>
+          <figcaption class="testi-attribution">
+            <cite><strong>Bryan Golden</strong></cite>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>CEO, SyTech</span>
+          </figcaption>
+        </figure>
+
+        <!~~ ============================================================
+             PLACEHOLDER QUOTE — REPLACE WITH REAL ENDORSEMENT FROM HAYDEN SCHAAP
+             Status: awaiting real endorsement
+             Source: copy drafted by team, NOT confirmed by Hayden
+             Action: Jen to remind Ethan to request a real quote from Hayden
+        ============================================================ ~~>
+        <figure class="testi-card reveal" data-delay="1">
+          <span class="testi-quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testi-quote">
+            Ethan brings rare end-to-end ownership &mdash; strategy, copy, design, and delivery, all from one operator. The work consistently lands.
+          </blockquote>
+          <figcaption class="testi-attribution">
+            <cite><strong>Hayden Schaap</strong></cite>
+            <span class="sep" aria-hidden="true">&middot;</span>
+            <span>CEO, Schaap Consulting</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+-->
+
+  <!-- ============================================================
+       7. CONTACT
+  ============================================================ -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="reveal">
+          <span class="section-rule" aria-hidden="true"></span>
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-heading">Let&rsquo;s build something.</h2>
+        </div>
+        <div class="reveal" data-delay="1">
+          <p class="contact-framing">
+            If you&rsquo;re hiring, briefing a project, or just want to compare notes &mdash; I read everything.
+          </p>
+          <div class="contact-buttons">
+            <a href="mailto:ethanglines@gmail.com" class="contact-btn magnetic" data-magnetic>
+              <span class="contact-btn-label">
+                <span class="small">Email</span>
+                <span class="big">ethanglines@gmail.com</span>
+              </span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+            <a href="https://linkedin.com/in/ethanglines" target="_blank" rel="noopener noreferrer" class="contact-btn magnetic" data-magnetic>
+              <span class="contact-btn-label">
+                <span class="small">LinkedIn</span>
+                <span class="big">linkedin.com/in/ethanglines</span>
+              </span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/ethanglines/" target="_blank" rel="noopener noreferrer" class="contact-btn magnetic" data-magnetic>
+              <span class="contact-btn-label">
+                <span class="small">Instagram</span>
+                <span class="big">@ethanglines</span>
+              </span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@ethanglines" target="_blank" rel="noopener noreferrer" class="contact-btn magnetic" data-magnetic>
+              <span class="contact-btn-label">
+                <span class="small">YouTube</span>
+                <span class="big">@ethanglines</span>
+              </span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     8. FOOTER
+============================================================ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <p class="footer-primary">
+        Ethan Glines &mdash; Founder of Blue Luna. Strategy, brand, deliver.
+      </p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://linkedin.com/in/ethanglines" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/ethanglines/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.youtube.com/@ethanglines" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="mailto:ethanglines@gmail.com">Email</a>
+        <a href="#about">Blue Luna</a>
+      </nav>
+    </div>
+    <div class="footer-base">
+      <span>&copy; 2026 Ethan Glines. All rights reserved.</span>
+      <span class="footer-signoff">Built by hand. Delivered on purpose.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Ethan Glines — Personal Website v5
+   JS additions on top of v4-dynamic baseline:
+     D. Elevator Pitch — custom audio player (32-bar waveform fill,
+        progress bar w/ click+keyboard seek, time display, pulsing
+        ring while playing, prefers-reduced-motion honored)
+============================================================ */
+(function () {
+  'use strict';
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const supportsHover = window.matchMedia('(hover: hover)').matches;
+
+  // ========================================================
+  // Header scroll state (unchanged from v3)
+  // ========================================================
+  const header = document.getElementById('header');
+  function onScroll() {
+    const y = window.scrollY;
+    if (y > 32) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ========================================================
+  // Scroll reveal via IntersectionObserver (unchanged from v3)
+  // ========================================================
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // ========================================================
+  // v4 #3 — HERO LETTER-STAGGER REVEAL
+  // Sequence:
+  //   t=0      first word "Strategy." reveals
+  //   t=200ms  "Brand." reveals
+  //   t=400ms  "Deliver." reveals
+  //   t=400+600=1000ms  Deliver word finishes its 600ms fade
+  //   t=1000ms  Deliver underline begins drawing (700ms)
+  //   t=400+600+200=1200ms  Support line begins reveal (600ms fade)
+  //   t=1200+600=1800ms  Support line finishes
+  //   t=1800ms  "industries" underline begins drawing
+  // ========================================================
+  const heroH1 = document.getElementById('heroH1');
+  const heroSupport = document.getElementById('heroSupport');
+  const heroUnderline = document.getElementById('heroUnderline');
+  const industriesUnderline = document.getElementById('industriesUnderline');
+
+  if (prefersReducedMotion) {
+    // Snap everything to final state
+    if (heroH1) heroH1.querySelectorAll('.word').forEach((w) => w.classList.add('in'));
+    if (heroSupport) heroSupport.classList.add('in');
+    if (heroUnderline) heroUnderline.classList.add('draw');
+    if (industriesUnderline) industriesUnderline.classList.add('draw');
+  } else if (heroH1) {
+    const words = heroH1.querySelectorAll('.word');
+    const STAGGER = 200; // ms between words
+    const WORD_FADE = 600; // matches CSS transition duration
+    const SUPPORT_DELAY_AFTER_H1 = 200; // ms gap before support line starts (request says ~600ms AFTER sequence completes; we interpret "completes" as when last word starts; tightening to 200 gives the requested cascading rhythm without dead air. See note in JS comments.)
+    // NOTE on timing: the brief says support line fades in 600ms AFTER H1 sequence completes.
+    // H1 sequence "completes" when the last word finishes its 600ms fade.
+    // So support starts at: (words.length-1)*STAGGER + WORD_FADE + 600 after page load.
+
+    // Fire each word
+    words.forEach((word, i) => {
+      setTimeout(() => word.classList.add('in'), i * STAGGER);
+    });
+
+    // Deliver underline starts AFTER the word "Deliver." has revealed
+    // (i.e., when the last word's fade completes)
+    const deliverFadeDoneAt = (words.length - 1) * STAGGER + WORD_FADE;
+    setTimeout(() => {
+      if (heroUnderline) heroUnderline.classList.add('draw');
+    }, deliverFadeDoneAt);
+
+    // Support line: 600ms AFTER the H1 sequence completes
+    const supportStartAt = deliverFadeDoneAt + 600;
+    setTimeout(() => {
+      if (heroSupport) heroSupport.classList.add('in');
+    }, supportStartAt);
+
+    // industries underline: starts AFTER support line finishes its 600ms fade
+    const industriesAt = supportStartAt + WORD_FADE;
+    setTimeout(() => {
+      if (industriesUnderline) industriesUnderline.classList.add('draw');
+    }, industriesAt);
+  }
+
+  // ========================================================
+  // v4 #5 — Scroll-triggered underline draws (businesses)
+  // Uses IntersectionObserver. industries is handled in the
+  // hero sequence above; this handles below-the-fold underlines.
+  // ========================================================
+  const scrollDrawEls = document.querySelectorAll('.underlined-svg.scroll-draw');
+  if (scrollDrawEls.length && 'IntersectionObserver' in window && !prefersReducedMotion) {
+    const drawIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Slight delay so the line draws after the heading reveal has begun
+          setTimeout(() => entry.target.classList.add('draw'), 300);
+          drawIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '0px 0px -10% 0px' });
+    scrollDrawEls.forEach((el) => drawIO.observe(el));
+  } else {
+    scrollDrawEls.forEach((el) => el.classList.add('draw'));
+  }
+
+  // ========================================================
+  // v4 #1 — STAT STRIP COUNT-UP
+  // - IntersectionObserver fires when ~50% in view
+  // - rAF-driven count using easeOutQuint
+  // - aria-live="polite" already on the number span; we set
+  //   textContent each frame; screen readers will announce
+  //   the final value (browsers throttle polite updates)
+  // ========================================================
+  const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+
+  function animateCount(el, target, duration) {
+    const hasPlus = el.dataset.plus === 'true';
+    const start = performance.now();
+    const initial = 0;
+
+    function tick(now) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuint(t);
+      const current = Math.round(initial + (target - initial) * eased);
+      // Preserve the static "+" suffix for the 5+ stat
+      if (hasPlus) {
+        el.innerHTML = current + '<span class="plus" aria-hidden="true">+</span>';
+      } else {
+        el.textContent = String(current);
+      }
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        // Final state — ensure exact target
+        if (hasPlus) {
+          el.innerHTML = target + '<span class="plus" aria-hidden="true">+</span>';
+        } else {
+          el.textContent = String(target);
+        }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+  if (statNumbers.length) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      // Snap to final
+      statNumbers.forEach((el) => {
+        const target = parseInt(el.dataset.target, 10);
+        const hasPlus = el.dataset.plus === 'true';
+        if (hasPlus) {
+          el.innerHTML = target + '<span class="plus" aria-hidden="true">+</span>';
+        } else {
+          el.textContent = String(target);
+        }
+      });
+    } else {
+      const countIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10);
+            animateCount(el, target, 1500);
+            countIO.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      statNumbers.forEach((el) => countIO.observe(el));
+    }
+  }
+
+  // ========================================================
+  // v4 #2 — MAGNETIC CTAs
+  // Behavior:
+  //   - Pointer within 80px of element rect → element pulls toward cursor
+  //   - Max displacement: 7px in any direction
+  //   - Smooth via 150ms cubic-bezier transition + rAF-throttled updates
+  //   - Resets to 0,0 when cursor leaves the radius or window
+  //   - Gated to (hover: hover) + prefers-reduced-motion: no-preference
+  //   - Uses translate3d via CSS custom properties --mx / --my
+  // ========================================================
+  if (supportsHover && !prefersReducedMotion) {
+    const RADIUS = 80;
+    const MAX_PULL = 7; // px
+    const magneticEls = document.querySelectorAll('.magnetic');
+
+    // Track per-element state
+    const state = new WeakMap();
+
+    let pointerX = -9999;
+    let pointerY = -9999;
+    let rafId = null;
+    let dirty = false;
+
+    function updateAll() {
+      rafId = null;
+      magneticEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = pointerX - cx;
+        const dy = pointerY - cy;
+        // Distance from element edge (approx): use distance from center minus
+        // half the smaller dimension as a cheap "near rect" check.
+        const dist = Math.hypot(dx, dy);
+        // Activation distance scales loosely with element size; for tight buttons
+        // this still feels right because rect.width is small.
+        const activation = Math.max(rect.width, rect.height) / 2 + RADIUS;
+        const s = state.get(el) || { tracking: false };
+
+        if (dist < activation) {
+          // Pull toward cursor, scaled by closeness
+          const pull = 1 - Math.min(dist / activation, 1);
+          const tx = (dx / activation) * MAX_PULL * (0.5 + pull * 0.5);
+          const ty = (dy / activation) * MAX_PULL * (0.5 + pull * 0.5);
+          el.style.setProperty('--mx', tx.toFixed(2) + 'px');
+          el.style.setProperty('--my', ty.toFixed(2) + 'px');
+          if (!s.tracking) {
+            el.classList.add('is-tracking');
+            s.tracking = true;
+            state.set(el, s);
+          }
+        } else if (s.tracking) {
+          // Out of range: glide back to center (longer ease)
+          el.style.setProperty('--mx', '0px');
+          el.style.setProperty('--my', '0px');
+          el.classList.remove('is-tracking');
+          s.tracking = false;
+          state.set(el, s);
+        }
+      });
+      dirty = false;
+    }
+
+    function onPointerMove(e) {
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+      if (!dirty) {
+        dirty = true;
+        rafId = requestAnimationFrame(updateAll);
+      }
+    }
+
+    function onPointerLeave() {
+      // Reset all to zero
+      magneticEls.forEach((el) => {
+        el.style.setProperty('--mx', '0px');
+        el.style.setProperty('--my', '0px');
+        el.classList.remove('is-tracking');
+        state.set(el, { tracking: false });
+      });
+    }
+
+    // Only attach listeners if we actually have magnetic elements
+    if (magneticEls.length) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerleave', onPointerLeave);
+      // Also reset on blur / visibility change
+      window.addEventListener('blur', onPointerLeave);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) onPointerLeave();
+      });
+    }
+  }
+
+  // ========================================================
+  // v5 D — ELEVATOR PITCH CUSTOM AUDIO PLAYER
+  // - 32-bar static waveform rendered by JS (deterministic heights)
+  // - Bars turn amber proportional to currentTime/duration
+  // - Progress bar: click to seek, arrow keys when focused (±5s)
+  // - Space toggles play/pause when play button focused
+  // - prefers-reduced-motion: pulsing ring already disabled via CSS
+  // ========================================================
+  (function initPitchPlayer() {
+    const audio = document.getElementById('pitchAudio');
+    const btn = document.getElementById('pitchPlayBtn');
+    const waveformEl = document.getElementById('pitchWaveform');
+    const progressEl = document.getElementById('pitchProgress');
+    const fillEl = document.getElementById('pitchProgressFill');
+    const currentLbl = document.getElementById('pitchCurrent');
+    const durationLbl = document.getElementById('pitchDuration');
+    if (!audio || !btn || !waveformEl || !progressEl || !fillEl) return;
+
+    const BAR_COUNT = 32;
+
+    // Deterministic 32-bar height pattern (range ~10-32px) — mimics a waveform
+    // without needing real audio analysis. Heights are fixed; only color fills.
+    const HEIGHTS = [
+      12, 18, 26, 22, 14, 20, 28, 32,
+      24, 16, 12, 22, 30, 26, 18, 14,
+      20, 28, 32, 24, 16, 22, 26, 18,
+      14, 20, 24, 28, 22, 16, 12, 18
+    ];
+    const bars = [];
+    for (let i = 0; i < BAR_COUNT; i++) {
+      const bar = document.createElement('span');
+      bar.style.height = HEIGHTS[i] + 'px';
+      waveformEl.appendChild(bar);
+      bars.push(bar);
+    }
+
+    function formatTime(seconds) {
+      if (!isFinite(seconds) || seconds < 0) return '0:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return m + ':' + (s < 10 ? '0' + s : s);
+    }
+
+    function setActiveBars(progress) {
+      // progress is 0..1; light bars whose index/COUNT <= progress
+      const litCount = Math.floor(progress * BAR_COUNT);
+      for (let i = 0; i < BAR_COUNT; i++) {
+        if (i < litCount) bars[i].classList.add('is-active');
+        else bars[i].classList.remove('is-active');
+      }
+    }
+
+    function updateProgressUI() {
+      const dur = audio.duration;
+      const cur = audio.currentTime;
+      if (!isFinite(dur) || dur <= 0) {
+        fillEl.style.width = '0%';
+        setActiveBars(0);
+        currentLbl.textContent = formatTime(cur);
+        return;
+      }
+      const pct = Math.max(0, Math.min(1, cur / dur));
+      fillEl.style.width = (pct * 100) + '%';
+      setActiveBars(pct);
+      currentLbl.textContent = formatTime(cur);
+      progressEl.setAttribute('aria-valuenow', Math.round(pct * 100));
+    }
+
+    // Loadedmetadata — show real duration
+    audio.addEventListener('loadedmetadata', () => {
+      durationLbl.textContent = formatTime(audio.duration);
+    });
+
+    // If metadata is already cached (e.g. reload), populate immediately
+    if (audio.readyState >= 1 && isFinite(audio.duration)) {
+      durationLbl.textContent = formatTime(audio.duration);
+    }
+
+    audio.addEventListener('timeupdate', updateProgressUI);
+
+    audio.addEventListener('play', () => {
+      btn.classList.add('is-playing');
+      btn.setAttribute('aria-pressed', 'true');
+      btn.setAttribute('aria-label', 'Pause elevator pitch');
+    });
+
+    audio.addEventListener('pause', () => {
+      btn.classList.remove('is-playing');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.setAttribute('aria-label', 'Play elevator pitch');
+    });
+
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      btn.classList.remove('is-playing');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.setAttribute('aria-label', 'Play elevator pitch');
+      updateProgressUI();
+    });
+
+    // Play/pause toggle
+    function togglePlay() {
+      if (audio.paused) {
+        const p = audio.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => { /* swallow autoplay block — user gesture already required */ });
+        }
+      } else {
+        audio.pause();
+      }
+    }
+    btn.addEventListener('click', togglePlay);
+
+    // Seek on progress-bar click
+    function seekFromEvent(e) {
+      const rect = progressEl.getBoundingClientRect();
+      const x = (e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX)) - rect.left;
+      const pct = Math.max(0, Math.min(1, x / rect.width));
+      if (isFinite(audio.duration)) {
+        audio.currentTime = pct * audio.duration;
+        updateProgressUI();
+      }
+    }
+    progressEl.addEventListener('click', seekFromEvent);
+
+    // Keyboard seek on progress bar (arrow keys = ±5s, Home/End = jump)
+    progressEl.addEventListener('keydown', (e) => {
+      if (!isFinite(audio.duration)) return;
+      let handled = false;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        audio.currentTime = Math.max(0, audio.currentTime - 5);
+        handled = true;
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+        audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+        handled = true;
+      } else if (e.key === 'Home') {
+        audio.currentTime = 0;
+        handled = true;
+      } else if (e.key === 'End') {
+        audio.currentTime = audio.duration;
+        handled = true;
+      }
+      if (handled) {
+        e.preventDefault();
+        updateProgressUI();
+      }
+    });
+
+    // Keyboard support on play button: arrow keys also seek (Space/Enter
+    // already toggle play via the native <button> behavior + click handler)
+    btn.addEventListener('keydown', (e) => {
+      if (!isFinite(audio.duration)) return;
+      if (e.key === 'ArrowLeft') {
+        audio.currentTime = Math.max(0, audio.currentTime - 5);
+        e.preventDefault();
+        updateProgressUI();
+      } else if (e.key === 'ArrowRight') {
+        audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+        e.preventDefault();
+        updateProgressUI();
+      }
+    });
+
+    // Initial UI state
+    updateProgressUI();
+  })();
+
+  // ========================================================
+  // Field Notes — collapsible card toggles
+  //   - Each card opens/closes independently (not accordion)
+  //   - aria-expanded reflects state on the <button>
+  //   - "Short post" edge case: if collapsed body height equals
+  //     the natural full-body height (within 1px), mark the card
+  //     .is-short — no toggle, no hidden footer
+  // ========================================================
+  (function () {
+    const cards = document.querySelectorAll('.field-note');
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      const btn = card.querySelector('.field-note-toggle');
+      const body = card.querySelector('.field-note-body');
+      if (!btn || !body) return;
+
+      // Detect the "short post" edge case: measure the collapsed
+      // body's rendered height vs. what it would be fully expanded.
+      // If they match, the teaser IS the whole post — no toggle.
+      const collapsedH = body.getBoundingClientRect().height;
+      card.classList.add('is-expanded');
+      const expandedH = body.getBoundingClientRect().height;
+      card.classList.remove('is-expanded');
+      if (Math.abs(expandedH - collapsedH) < 1) {
+        card.classList.add('is-short');
+        return;
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = card.classList.toggle('is-expanded');
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+    });
+  })();
+
+  // ========================================================
+  // Smooth anchor scroll offset for fixed header
+  // ========================================================
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (!id || id === '#' || id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const headerH = header.offsetHeight || 60;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerH - 12;
+      window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
